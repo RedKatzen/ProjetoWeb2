@@ -6,9 +6,9 @@ var db = new DBConn();
 
 router.get('/', function (req, res, next) {
     
-    db.findAllcontas((err, data) => {
+    db.findAllContas((err, data) => {
         if (err) next(err)
-        else res.render('accounts/index', { accounts: data });
+        else res.render('accounts/index', { accounts: data }, { title: 'Account Manager'});
     });
 });
 

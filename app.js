@@ -1,7 +1,11 @@
 const express = require('express')
 var path = require('path');
 const port = 3333
-app.set('view engine', 'ejs')
+
+//instancia rota
+var accountsRouter = require('./routes/accounts');
+var indexRouter = require('./routes/index');
+var signUpRouter = require('./routes/signUp')
 
 var DBConn = require('./db-conn.js')
 const app = express()
@@ -12,29 +16,28 @@ app.set('view engine', 'ejs');
 
 var db = new DBConn();
 
-//instancia rota
-var accountsRoute = require('./routes/accounts');
-
 //registra rota 
-app.use('/accounts', accountsRoute);
+app.use('/accounts', accountsRouter);
+app.use('/', indexRouter)
+app.use('/signUp', signUpRouter)
 
 app.get('/', (req, res) => {
-    res.render('pages/index', {
+    res.render('index', {
         title: "Login Page"
     })
 })
 
 app.get('/signUp', (req, res) => {
-    res.render('views/signUp', {
+    res.render('signUp', {
         title: "SignUp Page"
     })
 })
 
-app.get('/accountManager', (req, res) => {
-    res.render('views/accounts/', {
+/* app.get('/accountManager', (req, res) => {
+    res.render('accounts/', {
         title: "Account Manager"
     })
-})
+}) */
 
 app.listen(port, () => {
     console.log(`App listening at port ${port}`)
