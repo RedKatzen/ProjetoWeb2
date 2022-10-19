@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%=title%></title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            background: #fdfdfd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contas</h1>
+    <p><a href="/signUp">New account</a></p>
+    <ul>
+        <% for(var i = 0; i < accounts.length; i++) { %>
+            <li>
+              <a href="/accounts/<%= accounts[i].id %>"><%= accounts[i].nome %></a> 
+            </li>
+        <% } %> 
+    </ul>
+</body>
+</html>
