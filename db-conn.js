@@ -3,7 +3,7 @@ var sqlite3 = require('sqlite3');
 class DBConn {
 
     constructor() {
-        this.db = new sqlite3.Database('db/dev.db');
+        this.db = new sqlite3.Database('database.js');
         this.createTables();
     }
 
@@ -11,9 +11,8 @@ class DBConn {
         return this.db.get('SELECT last_insert_rowid()', callback);
     }
 
-
     createTables() {
-        var sql = `CREATE TABLE IF NOT EXISTS contas (
+        var sql = `CREATE TABLE IF NOT EXISTS accounts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL)`;
 
@@ -21,31 +20,29 @@ class DBConn {
     }
 
     createConta(nome, callback) {
-        var sql = 'INSERT INTO contas (nome) VALUES (?)';
+        var sql = 'INSERT INTO accounts (nome) VALUES (?)';
         return this.db.run(sql, [nome], callback);
     }
 
     updateConta(id, nome, callback) {
-        var sql = 'UPDATE contas SET nome = (?) WHERE ID = (?)';
+        var sql = 'UPDATE accounts SET nome = (?) WHERE ID = (?)';
         return this.db.run(sql, [nome, id], callback);
     }
 
     GetContaById(id, callback) {
-        var sql = 'SELECT * FROM contas WHERE ID = (?)';
+        var sql = 'SELECT * FROM accounts WHERE ID = (?)';
         return this.db.get(sql, id, callback);
     }    
 
     findAllContas(callback) {
-        var sql = 'SELECT * FROM contas';
+        var sql = 'SELECT * FROM accounts';
         return this.db.all(sql, [], callback);
     }
 
-    deleteContas(id, callback) {
-        var sql = 'DELETE FROM contas WHERE ID = (?)';
+    deleteConta(id, callback) {
+        var sql = 'DELETE FROM accounts WHERE ID = (?)';
         return this.db.run(sql, id, callback);
     }    
-
-
 }
 
 module.exports = DBConn
